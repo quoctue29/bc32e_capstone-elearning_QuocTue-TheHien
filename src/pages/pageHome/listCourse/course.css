@@ -1,0 +1,75 @@
+.card {
+    height: 275px;
+    margin-right: 1px;
+  }
+  .card .card-body {
+    padding: 1rem;
+  }
+  .card .card-body .card-title {
+    color: #29303b;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .card .card-body .card-text {
+    color: #686f7a;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 5px 0;
+  }
+  .card .card-body .card__star i {
+    color: #F4C150;
+    font-size: 12px;
+    font-weight: 900;
+  }
+  .card .card-body .card__star .card__rate {
+    color: #686f7a;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .card .card-body .card__star .card__total {
+    color: #686f7a;
+    font-size: 13px;
+    font-weight: normal;
+  }
+  .card .card-body .card__price {
+    padding: 7px 0;
+    text-align: right;
+  }
+  .card .card-body .card__price span:first-child {
+    color: #686f7a;
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: line-through;
+  }
+  .card .card-body .card__price span:last-child {
+    color: #29303b;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .card--feedback {
+    height: 280px;
+  }
+  .card--feedback .card-body {
+    padding: 2rem;
+  }
+  .card--feedback .card-body .card__top {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  .card--feedback .card-body .card__avatar {
+    margin-right: 15px;
+  }
+  .card--feedback .card-body .card__avatar img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+  }
+  .card--feedback .card-body .card__name {
+    margin-bottom: 0;
+  }
+  .card--feedback .card-body .card-text {
+    color: #29303b;
+    font-size: 15px;
+    font-weight: normal;
+  }

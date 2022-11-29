@@ -1,1 +1,2 @@
-# bc32e_capstone-elearning_QuocTue-TheHien
+# Bc32e_QuocTue_TheHien_CapstoneReact-Elearning
+
