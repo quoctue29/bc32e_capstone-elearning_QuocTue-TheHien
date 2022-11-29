@@ -3,26 +3,33 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { MaNhom } from '../../constants/api';
-import { dangKyNguoiDung, quanLyNguoiDungActions } from "../../stores/quanLyNguoiDungReducer/quanLyNguoiDungReducer";
+import { MaNhom } from "../../constants/api";
+import {
+  dangKyNguoiDung,
+  quanLyNguoiDungActions,
+} from "../../stores/quanLyNguoiDungReducer/quanLyNguoiDungReducer";
 import { useQuanLyNguoiDung } from "../../stores/quanLyNguoiDungReducer/quanLyNguoiDungSelector";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors }, } = useForm({
-     mode: "onBlur",
-   });
-   const { errDangKi, dangKy } = useQuanLyNguoiDung()
-   useEffect(() => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+  });
+  const { errDangKi, dangKy } = useQuanLyNguoiDung();
+  useEffect(() => {
     if (!errDangKi && dangKy) {
-       navigate('/user/login');
+      navigate("/user/login");
     }
- })
-   useEffect(() => {
-    dispatch(quanLyNguoiDungActions.dangKy())
- }, []);
- console.log("errors: ", errors);
+  });
+  useEffect(() => {
+    dispatch(quanLyNguoiDungActions.dangKy());
+  }, []);
+
   return (
     <section className="h-screen">
       <div className="lg:flex">
@@ -41,9 +48,11 @@ const Register = () => {
             </h2>
             <div className="mt-12">
               <form
-                onSubmit={handleSubmit((data) =>
-                  dispatch(dangKyNguoiDung({ ...data, maNhom: MaNhom }))
-                )}
+                onSubmit={handleSubmit((data) => {
+                  console.log(data);
+                  console.log(MaNhom);
+                  dispatch(dangKyNguoiDung({ ...data, maNhom: MaNhom }));
+                })}
               >
                 <div>
                   <div className="text-sm font-bold text-gray-700 tracking-wide">
@@ -102,7 +111,7 @@ const Register = () => {
                     className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                     type="text"
                     placeholder="Nhập Mật Khẩu"
-                    {...register("Email", {
+                    {...register("email", {
                       required: "Không được bỏ trống !",
                     })}
                   />
@@ -123,7 +132,7 @@ const Register = () => {
                     className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                     type="text"
                     placeholder="Nhập Số Điện Thoại"
-                    {...register("sdt", {
+                    {...register("soDT", {
                       required: "Không được bỏ trống !",
                     })}
                   />
