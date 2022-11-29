@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { quanLyCourseServices } from "../../../services/quanLyCourseServices";
-import { Rate } from "antd";
-//import styled from "styled-components";
+
 const Detail = () => {
   const params = useParams();
   const dispatch = useDispatch();
@@ -22,27 +21,22 @@ const Detail = () => {
     })();
   }, []);
   return (
-    <div >
-      <div className="py-3 grid sm:grid-cols-2 md:grid-cols-5">
-        <div className="md:col-span-1">
-          <img 
-            src={detail?.hinhAnh}
-            className="w-full"
-            alt={detail?.biDanh}
-          />
-        </div>
+    <div className="container mt-10">
+      <div className="flex">
+        <img
+          src={detail?.hinhAnh}
+          className="w-[550px] h-[550px]"
+          alt={detail?.biDanh}
+        />
 
-        <div className="md:col-span-3 sm:px-3 pt-3 sm:pt-0">
-          <p className="text-3xl font-semibold text-amber-500 m-0">{detail?.tenKhoaHoc}</p>
-          <p>Mô tả:{detail?.moTa}</p>
+        <div className="col-8 ml-4 text-xl">
+          <p>Tên khóa học: {detail?.tenKhoaHoc}</p>
+          <p>Mô tả: {detail?.moTa}</p>
           <p>Lượt xem: {detail?.luotXem}</p>
-          <p>{moment(detail?.ngayTao).format("DD-MM-YYYY hh:mm")}</p>
-          <p> Đánh giá : <Rate
-                  allowHalf
-                  disabled
-                  value={(5 / 10) * detail.danhGia}
-                />
-                 </p>
+          <p>Ngày tạo: {moment(detail?.ngayTao).format("DD-MM-YYYY hh:mm")}</p>
+          <button className="py-2 px-10 bg-yellow-400 rounded-md hover:bg-red-500 hover:text-white">
+            Đăng ký ngay
+          </button>
         </div>
       </div>
     </div>

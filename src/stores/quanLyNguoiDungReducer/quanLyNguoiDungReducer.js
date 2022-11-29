@@ -3,28 +3,44 @@ import { AccessToken, UserLogin } from '../../constants/api';
 import { quanLyNguoiDung } from '../../services/quanLyNguoiDungServices';
 
 const initialState = {
-    listnguoidung: [], isFetchListNguoiDung: false, errListNguoiDung: undefined,nguoiDung: null, isFetchNguoiDung: false, errNguoiDung: undefined,
+   nguoiDung: null, isFetchNguoiDung: false, errNguoiDung: undefined,
+   xoaUser: null, isFetchXoaUser: false, errXoaUser: undefined,
+   ttTaiKhoan: null, isFetchTtTaiKhoan: false, errTtTaiKhoan: undefined,
+   danhSachNguoiDung: null, isFetchDanhSachNguoiDung: false, errDanhSachNguoiDung: undefined,
+   addNguoiDung: null, isFetchAddNguoiDung: false, errAddNguoiDung: undefined,
+   ttNguoiDung: null, isFetchTtNguoiDung: false, errTtNguoiDung: undefined,
+   capNhat: null, isCapNhat: false, errCapNhat: undefined,
     dangKy: null, isFetchDangKi: false, errDangKi: undefined,
-    ttTaiKhoan: null, isFetchTtTaiKhoan: false, errTtTaiKhoan: undefined,
-    danhSachNguoiDung: null, isFetchDanhSachNguoiDung: false, errDanhSachNguoiDung: undefined,
 }
 
 export const { reducer: quanLyNguoiDungReducer, actions: quanLyNguoiDungActions } = createSlice({
     name: 'quanLyKhoaHoc',
     initialState,
     reducers: {
-        dangXuat: (state, action) => {
-            state.nguoiDung = null
-            state.dangKy = null
-            localStorage.removeItem(UserLogin)
-            localStorage.removeItem(AccessToken)
-         },
+        // dangXuat: (state, action) => {
+        //     state.nguoiDung = null
+        //     state.dangKy = null
+        //     localStorage.removeItem(UserLogin)
+        //     localStorage.removeItem(AccessToken)
+        //  },
          dangKy: (state, action) => {
             state.errDangKi = undefined
          },
          dangNhap: (state, action) => {
             state.errNguoiDung = undefined
          },
+         themNguoiDung: (state, action) => {
+            state.errAddNguoiDung = undefined
+            state.addNguoiDung = null
+         },
+         capNhat: (state, action) => {
+            state.errCapNhat = undefined
+            state.capNhat = null
+         },
+         xoaNguoiDung: (state, action) => {
+            state.errXoaUser = undefined
+            state.xoaUser = null
+         }
     },
     extraReducers: (builder) => {
         builder
@@ -37,7 +53,7 @@ export const { reducer: quanLyNguoiDungReducer, actions: quanLyNguoiDungActions 
             state.isFetchNguoiDung = false
             state.errNguoiDung = undefined
             localStorage.setItem(UserLogin, JSON.stringify(action.payload))
-            localStorage.setItem(AccessToken, JSON.stringify(action.payload.accessToken))
+            // localStorage.setItem(AccessToken, JSON.stringify(action.payload.accessToken))
          }).addCase(dangNhap.rejected, (state, action) => {
             state.errNguoiDung = action.payload
             state.isFetchNguoiDung = false
@@ -53,17 +69,29 @@ export const { reducer: quanLyNguoiDungReducer, actions: quanLyNguoiDungActions 
             state.errDangKi = action.payload
             state.isFetchDangKi = false
          })
-              // thông tin tài khoản
-              .addCase(thongTinTaiKhoan.pending, (state, action) => {
-               state.isFetchTtTaiKhoan = true
-            }).addCase(thongTinTaiKhoan.fulfilled, (state, action) => {
-               state.isFetchTtTaiKhoan = false
-               state.ttTaiKhoan = action.payload
-            }).addCase(thongTinTaiKhoan.rejected, (state, action) => {
-               state.isFetchTtTaiKhoan = false
-               state.errTtTaiKhoan = action.payload
-            })
-                     // lấy danh sách người dùng
+         // xoá người dùng
+         .addCase(xoaNguoiDung.pending, (state, action) => {
+            state.isFetchXoaUser = true
+         }).addCase(xoaNguoiDung.fulfilled, (state, action) => {
+            state.isFetchXoaUser = false
+            state.xoaUser = action.payload
+            state.errXoaUser = undefined
+         }).addCase(xoaNguoiDung.rejected, (state, action) => {
+            state.isFetchXoaUser = false
+            state.errXoaUser = action.payload
+            state.xoaUser = null
+         })
+         // thông tin tài khoản
+         .addCase(thongTinTaiKhoan.pending, (state, action) => {
+            state.isFetchTtTaiKhoan = true
+         }).addCase(thongTinTaiKhoan.fulfilled, (state, action) => {
+            state.isFetchTtTaiKhoan = false
+            state.ttTaiKhoan = action.payload
+         }).addCase(thongTinTaiKhoan.rejected, (state, action) => {
+            state.isFetchTtTaiKhoan = false
+            state.errTtTaiKhoan = action.payload
+         })
+         // lấy danh sách người dùng
          .addCase(layDanhSachNguoiDung.pending, (state, action) => {
             state.isFetchDanhSachNguoiDung = true
          }).addCase(layDanhSachNguoiDung.fulfilled, (state, action) => {
@@ -73,15 +101,37 @@ export const { reducer: quanLyNguoiDungReducer, actions: quanLyNguoiDungActions 
             state.errDanhSachNguoiDung = action.payload
             state.isFetchDanhSachNguoiDung = false
          })
-         //
-        .addCase(getNguoiDung.pending, (state, action) => {
-            state.isFetchListNguoiDung = true
-         }).addCase(getNguoiDung.fulfilled, (state, action) => {
-            state.listnguoidung = action.payload
-            state.isFetchListNguoiDung = false
-         }).addCase(getNguoiDung.rejected, (state, action) => {
-            state.errListNguoiDung = action.payload
-            state.isFetchListNguoiDung = false
+         // thêm người dùng
+         .addCase(themNguoiDung.pending, (state, action) => {
+            state.isFetchAddNguoiDung = true
+         }).addCase(themNguoiDung.fulfilled, (state, action) => {
+            state.isFetchAddNguoiDung = false
+            state.addNguoiDung = action.payload            //trả về người dùng
+            state.errAddNguoiDung = undefined
+         }).addCase(themNguoiDung.rejected, (state, action) => {
+            state.isFetchAddNguoiDung = false
+            state.errAddNguoiDung = action.payload        // trả về lỗi form
+         })
+         // lấy thông tin người dùng
+         .addCase(layThongTinNguoiDung.pending, (state, action) => {
+            state.isFetchTtNguoiDung = true
+         }).addCase(layThongTinNguoiDung.fulfilled, (state, action) => {
+            state.isFetchTtNguoiDung = false
+            state.ttNguoiDung = action.payload            //trả về tt người dùng
+         }).addCase(layThongTinNguoiDung.rejected, (state, action) => {
+            state.isFetchTtNguoiDung = false
+            state.errTtNguoiDung = action.payload
+         })
+         // cập nhật thông tin người dùng
+         .addCase(capNhatThongTinNguoiDung.pending, (state, action) => {
+            state.isCapNhat = true
+         }).addCase(capNhatThongTinNguoiDung.fulfilled, (state, action) => {
+            state.isCapNhat = false
+            state.capNhat = action.payload            //trả về tt người dùng
+            state.errCapNhat = undefined
+         }).addCase(capNhatThongTinNguoiDung.rejected, (state, action) => {
+            state.isCapNhat = false
+            state.errCapNhat = action.payload
          })
     }
 });
@@ -90,10 +140,9 @@ export const dangNhap = createAsyncThunk('quanLyNguoiDung/dangNhap',
    async (taiKhoan, { rejectWithValue }) => {
       try {
          const result = await quanLyNguoiDung.dangNhap(taiKhoan)
-         console.log(result)
-         return result.data
+         return result.data.content
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         return rejectWithValue(err.response.data.content)
       }
    }
 )
@@ -102,6 +151,30 @@ export const dangKyNguoiDung = createAsyncThunk('quanLyNguoiDung/dangKyNguoiDung
    async (taiKhoan, { rejectWithValue }) => {
       try {
          const result = await quanLyNguoiDung.dangKy(taiKhoan)
+         return result.data.content
+      } catch (err) {
+         return rejectWithValue(err.response.data.content)
+      }
+   }
+)
+export const getNguoiDung = createAsyncThunk(
+    'quanLyNguoiDungReducer/getNguoiDung',
+    async (data, { dispatch, getState, rejectWithValue }) => {
+        try {
+            const value = getState().quanLyNguoiDungReducer
+            const result = await quanLyNguoiDung.getNguoiDung();
+            console.log(result);
+            return result.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+ )
+
+ export const xoaNguoiDung = createAsyncThunk('quanLyNguoiDung/xoaNguoiDung',
+   async (taiKhoan, { rejectWithValue }) => {
+      try {
+         const result = await quanLyNguoiDung.xoaNguoiDung(taiKhoan)
          return result.data.content
       } catch (err) {
          return rejectWithValue(err.response.data.content)
@@ -128,16 +201,33 @@ export const layDanhSachNguoiDung = createAsyncThunk('quanLyNguoiDung/layDanhSac
       }
    }
 )
-export const getNguoiDung = createAsyncThunk(
-    'quanLyNguoiDungReducer/getNguoiDung',
-    async (data, { dispatch, getState, rejectWithValue }) => {
-        try {
-            const value = getState().quanLyNguoiDungReducer
-            const result = await quanLyNguoiDung.getNguoiDung();
-            console.log(result);
-            return result.data
-        } catch (error) {
-            return rejectWithValue(error.response.data)
-        }
-    }
- )
+ export const themNguoiDung = createAsyncThunk('quanLyNguoiDung/themNguoiDung',
+   async (nguoiDung, { rejectWithValue }) => {
+      try {
+         const result = await quanLyNguoiDung.themNguoiDung(nguoiDung)
+         return result.data.content
+      } catch (err) {
+         return rejectWithValue(err.response.data.content)
+      }
+   }
+)
+export const layThongTinNguoiDung = createAsyncThunk('quanLyNguoiDung/layThongTinNguoiDung',
+   async (taiKhoan, { rejectWithValue }) => {
+      try {
+         const result = await quanLyNguoiDung.layThongTinNguoiDung(taiKhoan)
+         return result.data.content
+      } catch (err) {
+         return rejectWithValue(err.response.data.content)
+      }
+   }
+)
+export const capNhatThongTinNguoiDung = createAsyncThunk('quanLyNguoiDung/capNhatThongTinNguoiDung',
+   async (taiKhoan, { rejectWithValue }) => {
+      try {
+         const result = await quanLyNguoiDung.capNhatThongTinNguoiDung(taiKhoan)
+         return result.data
+      } catch (err) {
+         return rejectWithValue(err.response.data.content)
+      }
+   }
+)
