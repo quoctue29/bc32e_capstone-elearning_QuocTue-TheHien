@@ -13,15 +13,6 @@ const Banner = (props) => {
         Trở thành lập trình chuyên nghiệp 
         tại CyberLearn!
         </p>
-        <form className="cover__form">
-          <div className="input-group">
-            <input
-              type="text"
-              className="bg-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
-              placeholder="Search..."
-            />
-          </div>
-        </form>
       </div>
     </section>
   );

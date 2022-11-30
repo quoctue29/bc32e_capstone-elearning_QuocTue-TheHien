@@ -69,9 +69,9 @@ function Course(props) {
                 </div>
                 <div class="card-body">
                   <h5 class="card-title" >
-                  {khoaHoc.tenKhoaHoc.slice(0,25)+"..."}
+                  {khoaHoc.tenKhoaHoc.slice(0,15)+"..."}
                   </h5>
-                  <p class="card-text">{khoaHoc.moTa.slice(0,25)+"..."}</p>
+                  <p class="card-text">{khoaHoc.moTa.slice(0,10)+"..."}</p>
                   <div class="card__star">
                     <span>
                       <i class="fa fa-star"></i>

@@ -8,7 +8,6 @@ const initialState = {
   listKhoaHocTheoDanhMuc: [],
   isFetchListKhoaHoc: false,
   errListKhoaHoc: undefined,
-  number: 1,
   themKhoaHoc: null, isFetchThemKhoaHoc: false, errThemKhoaHoc: undefined,
    delKhoaHoc: null, isFetchDelKhoaHoc: false, errDelKhoaHoc: undefined,
    upDateKhoaHoc: null, isFetchUpdateKhoaHoc: false, errUpdateKhoaHoc: undefined

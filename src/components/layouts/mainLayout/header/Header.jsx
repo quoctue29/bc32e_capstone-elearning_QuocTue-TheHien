@@ -1,29 +1,32 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import {
   Navigate,
   NavLink,
   useNavigate,
-  useSearchParams,
 } from "react-router-dom";
 import { UserLogin } from "../../../../constants/api";
 import { quanLyNguoiDungActions } from "../../../../stores/quanLyNguoiDungReducer/quanLyNguoiDungReducer";
-import { getKhoaHocList } from "../../../../stores/quanLyKhoaHocReducer/quanLyKhoaHocReducer";
-import { useQuanLyKhoaHoc } from "../../../../stores/quanLyKhoaHocReducer/quanLyPhimSelector";
 const Header = () => {
-  const { handleSubmit } = useForm();
-  const [searchParam, setSearchParam] = useSearchParams();
-  const [tuKhoa, setTuKhoa] = useState();
-  const navigate = useNavigate();
+  const form = useForm();
+  console.log(form);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+   const navigate = useNavigate();
   const dispatch = useDispatch();
   const nguoiDung = JSON.parse(localStorage.getItem(UserLogin));
-  const { listKhoaHoc } = useQuanLyKhoaHoc();
-  // useEffect(() => {
-  //   dispatch(getKhoaHocList(`${tuKhoa}${searchParam.get("tuKhoa")}`));
-  // }, []);
+  //const [navbar, setNavbar] = useState(false);
+  const onSubmitSearch = (values) => {
+    if (values.tenKhoaHoc.trim().length === 0) return;
+    navigate({
+      pathname: "/timkiemkhoahoc",
+      search: `?q=${values.tenKhoaHoc}`,
+    });
+  };
   return (
     <nav className="flex items-center justify-between flex-wrap bg-black py-4 lg:px-12 shadow border-solid border-t-2 border-amber-700">
       <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
@@ -64,31 +67,16 @@ const Header = () => {
         </div>
         {/* This is an example component */}
         <form
-          onSubmit={handleSubmit((data) => {
-            setSearchParam({ tuKhoa: `${data.paramSearch.trim()}` });
-            setTuKhoa("tuKhoa=");
-          })}
-          className="relative mx-auto text-gray-600 lg:block hidden"
+          onSubmit={handleSubmit(onSubmitSearch)}
+          className="relative mx-auto text-gray-600 lg:block hidden flex-1"
         >
           <input
-            onInput={(e) => {
-              if (e.target.value === "") {
-                setTuKhoa();
-                setSearchParam();
-              }
-            }}
-            className="border-2 border-gray-300 bg-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
+            {...register("tenKhoaHoc")}
+            className="border-2 w-[500px] border-gray-300 bg-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
             type="search"
-            name="search"
-            placeholder="Nhập khóa học"
+            placeholder="Nhập khóa học bạn cần tìm.... "
           />
-          <button
-            onClick={() => {
-              navigate("/timKiemKhoaHoc");
-            }}
-            type="submit"
-            className="absolute right-0 top-0 mt-3 mr-2"
-          >
+          <button type="submit" className="absolute right-0 top-0 mt-3 mr-2">
             <svg
               className="text-gray-600 h-4 w-4 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +117,7 @@ const Header = () => {
                   to="/admin/coures"
                   className="inline-block px-4 py-2 text-white bg-gray-800 rounded-md shadow hover:bg-gray-500 hover:text-white transition duration-300"
                 >
-                  Page Admin
+                  Trang GV
                 </NavLink>
               ) : (
                 ""

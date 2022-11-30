@@ -2,106 +2,106 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer class="bg-white dark:bg-gray-900">
+    <footer class="bg-black">
       <div class="grid grid-cols-2 gap-8 py-8 px-6 md:grid-cols-4">
         <div>
-          <h2 class="mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+          <h2 class="mb-6 text-sm font-semibold text-amber-500 uppercase dark:text-amber-400">
             Company
           </h2>
           <ul class="text-gray-500 dark:text-gray-400">
             <li class="mb-4">
-              <a href="#" class=" hover:underline">
+              <a href="#" className="text-white" class=" hover:underline">
                 About
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Careers
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Brand Center
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Blog
               </a>
             </li>
           </ul>
         </div>
         <div>
-          <h2 class="mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+          <h2 class="mb-6 text-sm font-semibold text-amber-500 uppercase dark:text-amber-400">
             Help center
           </h2>
           <ul class="text-gray-500 dark:text-gray-400">
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Discord Server
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Twitter
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Facebook
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Contact Us
               </a>
             </li>
           </ul>
         </div>
         <div>
-          <h2 class="mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+          <h2 class="mb-6 text-sm font-semibold text-amber-500 uppercase dark:text-amber-400">
             Legal
           </h2>
           <ul class="text-gray-500 dark:text-gray-400">
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Privacy Policy
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Licensing
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Terms &amp; Conditions
               </a>
             </li>
           </ul>
         </div>
         <div>
-          <h2 class="mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+          <h2 class="mb-6 text-sm font-semibold text-amber-500 uppercase dark:text-amber-400">
             Download
           </h2>
           <ul class="text-gray-500 dark:text-gray-400">
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 iOS
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Android
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 Windows
               </a>
             </li>
             <li class="mb-4">
-              <a href="#" class="hover:underline">
+              <a href="#" className="text-white" class="hover:underline">
                 MacOS
               </a>
             </li>
@@ -109,14 +109,19 @@ const Footer = () => {
         </div>
       </div>
       <div class="py-6 px-4 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 dark:text-gray-300 sm:text-center">
-          © 2022 <a href="https://flowbite.com/">Flowbite™</a>. All Rights
+        <img
+              className="w-25"
+              src="https://cyberlearn.vn/wp-content/uploads/2020/03/cyberlearn-min-new-opt2.png"
+              alt=""
+            />
+        <span className="text-sm text-amber-500 dark:text-amber-300 sm:text-center">
+          © 2022 <a className="text-white"  href="https://flowbite.com/">Cyberlearn™</a>. All Rights
           Reserved.
         </span>
         <div class="flex mt-4 space-x-6 sm:justify-center md:mt-0">
           <a
             href="#"
-            class="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            class="text-amber-400 hover:text-amber-900 dark:hover:text-white"
           >
             <svg
               class="w-5 h-5"
@@ -134,7 +139,7 @@ const Footer = () => {
           </a>
           <a
             href="#"
-            class="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            class="text-amber-400 hover:text-amber-900 dark:hover:text-white"
           >
             <svg
               class="w-5 h-5"
@@ -152,7 +157,7 @@ const Footer = () => {
           </a>
           <a
             href="#"
-            class="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            class="text-amber-400 hover:text-amber-900 dark:hover:text-white"
           >
             <svg
               class="w-5 h-5"
@@ -166,7 +171,7 @@ const Footer = () => {
           </a>
           <a
             href="#"
-            class="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            class="text-amber-400 hover:text-amber-900 dark:hover:text-white"
           >
             <svg
               class="w-5 h-5"
@@ -184,7 +189,7 @@ const Footer = () => {
           </a>
           <a
             href="#"
-            class="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            class="text-amber-400 hover:text-amber-900 dark:hover:text-white"
           >
             <svg
               class="w-5 h-5"

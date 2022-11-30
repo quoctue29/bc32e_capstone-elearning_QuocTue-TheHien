@@ -13,7 +13,7 @@ export default function DanhMuc() {
     dispatch(getDanhMucKhoaHoc());
   }, []);
   return (
-    <div className=" items-center justify-between">
+    <div className="max-w-[1340px] w-full mx-auto px-6 py-12 min-h-[550px] ">
       <div>
         <ListKhoaHoc />
       </div>

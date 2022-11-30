@@ -64,30 +64,30 @@ export default function QuanLyCoures() {
           </tr>
         </thead>
         <tbody className="block h-[500px] overflow-auto">
-          {[...listKhoaHoc].reverse().map((phim, i) => (
+          {[...listKhoaHoc].reverse().map((kh, i) => (
             <tr key={i} className="border-b text-left flex pl-3 py-2">
               <td className="w-10">{i + 1}</td>
-              <td className="w-20">{phim.maKhoaHoc}</td>
+              <td className="w-20">{kh.maKhoaHoc}</td>
               <td className="w-20">
-                <img src={phim.hinhAnh} alt="" className="w-12" />
+                <img src={kh.hinhAnh} alt="" className="w-12" />
               </td>
-              <td className="w-40">{phim.tenKhoaHoc}</td>
-              <td className="flex-1">{phim.moTa}</td>
+              <td className="w-40">{kh.tenKhoaHoc}</td>
+              <td className="flex-1">{kh.moTa}</td>
               <td className="w-40 space-x-2">
                 <button
-                  onClick={() => dispatch(xoaKhoaHoc(phim.maKhoaHoc))}
+                  onClick={() => dispatch(xoaKhoaHoc(kh.maKhoaHoc))}
                   className="bg-red-500 p-1 rounded-md shadow text-white hover:bg-red-800"
                 >
                   Del
                 </button>
                 <button
-                  onClick={() => navigate(`edit/${phim.maKhoaHoc}`)}
+                  onClick={() => navigate(`edit/${kh.maKhoaHoc}`)}
                   className="bg-green-700 p-1 rounded-md text-white hover:bg-green-900"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => navigate(`showtime/${phim.maKhoaHoc}`)}
+                  onClick={() => navigate(`create/${kh.maKhoaHoc}`)}
                   className="bg-blue-700 p-1 rounded-md shadow text-white hover:bg-blue-800"
                 >
                   Add

@@ -23,6 +23,7 @@ const Register = () => {
   const { errDangKi, dangKy } = useQuanLyNguoiDung();
   useEffect(() => {
     if (!errDangKi && dangKy) {
+      console.log(1)
       navigate("/user/login");
     }
   });
@@ -48,10 +49,14 @@ const Register = () => {
             </h2>
             <div className="mt-12">
               <form
-                onSubmit={handleSubmit((data) => {
-                  console.log(data);
-                  console.log(MaNhom);
-                  dispatch(dangKyNguoiDung({ ...data, maNhom: MaNhom }));
+                onSubmit={handleSubmit(async(data) => {
+                  try {
+                    const res = await dispatch(dangKyNguoiDung({ ...data, maNhom: MaNhom }));
+                    navigate("/user/login");
+                  } catch (error) {
+                    console.log(error)
+                  }
+                  
                 })}
               >
                 <div>
