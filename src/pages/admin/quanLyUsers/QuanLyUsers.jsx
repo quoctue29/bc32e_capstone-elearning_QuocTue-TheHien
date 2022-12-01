@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { quanLyNguoiDung } from "../../../services/quanLyNguoiDungServices";
 import {
   layDanhSachNguoiDung,
   quanLyNguoiDungActions,
   xoaNguoiDung,
 } from "../../../stores/quanLyNguoiDungReducer/quanLyNguoiDungReducer";
+import ModalEdit from "./ModalEdit";
 
 export default function QuanLyUsers() {
   const { register, handleSubmit } = useForm();
@@ -15,14 +17,25 @@ export default function QuanLyUsers() {
   const { xoaUser, errXoaUser, danhSachNguoiDung } = useSelector(
     (state) => state.quanLyNguoiDungReducer
   );
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
+  const handleEdit = (user) => {
+    setOpen(true);
+    setUser(user);
+  };
   const [searchParam, setSearchParam] = useSearchParams();
   const [tuKhoa, setTuKhoa] = useState();
   const [pass, setPass] = useState();
-
+  const [listUser, setListUser] = useState([]);
   useEffect(() => {
     dispatch(layDanhSachNguoiDung(`${tuKhoa}${searchParam.get("tuKhoa")}`));
   }, [xoaUser, searchParam]);
-
+  useEffect(() => {
+    (async () => {
+      const res = await quanLyNguoiDung.layDanhSachNguoiDung();
+      setListUser(res.data);
+    })();
+  }, []);
   return (
     <div className="QuanLyUsers p-3">
       <p className="font-bold text-xl mb-3">Quản lý người dùng</p>
@@ -69,50 +82,52 @@ export default function QuanLyUsers() {
           </tr>
         </thead>
         <tbody className="block h-[500px] overflow-auto">
-          {danhSachNguoiDung?.map((nguoiDung, i) => (
-            <tr key={i} className="border-b text-left flex pl-3 py-2">
-              <td className="w-10">{i + 1}</td>
-              <td className="w-36 break-words">{nguoiDung.taiKhoan}</td>
-              <td
-                className="w-36 break-words cursor-pointer"
-                onClick={() => {
-                  if (pass === i) {
-                    setPass();
-                  } else {
-                    setPass(i);
-                  }
-                }}
-              >
-                {pass === i ? nguoiDung.matKhau : "*****"}
-              </td>
-              <td className="w-36 break-words">{nguoiDung.hoTen}</td>
-              <td className="w-36 break-words">{nguoiDung.email}</td>
-              <td className="w-36 break-words">{nguoiDung.soDT}</td>
-              <td className="w-36 break-words">
-                {nguoiDung.maLoaiNguoiDung === "KhachHang"
-                  ? "Khách Hàng"
-                  : "Quản trị"}
-              </td>
-              <td className="flex-1 space-x-2">
-                <button
-                  onClick={() => navigate(`suanguoidung/${nguoiDung.taiKhoan}`)}
-                  className="bg-green-700 p-1 rounded-md text-white hover:bg-green-900"
-                >
-                  Edit
-                </button>
-                <button
+          {listUser.length > 0 &&
+            listUser?.map((nguoiDung, i) => (
+              <tr key={i} className="border-b text-left flex pl-3 py-2">
+                <td className="w-10">{i + 1}</td>
+                <td className="w-36 break-words">{nguoiDung.taiKhoan}</td>
+                <td
+                  className="w-36 break-words cursor-pointer"
                   onClick={() => {
-                    dispatch(xoaNguoiDung(nguoiDung.taiKhoan));
+                    if (pass === i) {
+                      setPass();
+                    } else {
+                      setPass(i);
+                    }
                   }}
-                  className="bg-yellow-600 p-1 rounded-md text-white hover:bg-red-600"
                 >
-                  Del
-                </button>
-              </td>
-            </tr>
-          ))}
+                  {pass === i ? nguoiDung.matKhau : "*****"}
+                </td>
+                <td className="w-36 break-words">{nguoiDung.hoTen}</td>
+                <td className="w-36 break-words">{nguoiDung.email}</td>
+                <td className="w-36 break-words">{nguoiDung.soDT}</td>
+                <td className="w-36 break-words">
+                  {nguoiDung.maLoaiNguoiDung === "KhachHang"
+                    ? "Khách Hàng"
+                    : "Quản trị"}
+                </td>
+                <td className="flex-1 space-x-2">
+                  <button
+                    onClick={() => handleEdit(nguoiDung)}
+                    className="bg-green-700 p-1 rounded-md text-white hover:bg-green-900"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      dispatch(xoaNguoiDung(nguoiDung.taiKhoan));
+                    }}
+                    className="bg-yellow-600 p-1 rounded-md text-white hover:bg-red-600"
+                  >
+                    Del
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
+      <ModalEdit user={user} open={open} setOpen={setOpen} />
       {xoaUser || errXoaUser ? (
         <div className="fixed top-0 bottom-0 left-0 right-0 bg-black/40">
           <div className="w-80 h-40 bg-white mx-auto mt-40 shadow flex flex-col justify-center items-center">

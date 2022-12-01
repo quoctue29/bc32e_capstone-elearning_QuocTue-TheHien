@@ -2,9 +2,10 @@ import moment from "moment";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { quanLyCourseServices } from "../../../services/quanLyCourseServices";
+import { addToCart } from "../../../stores/Card/cardSlice";
 //import { quanLyKhoaHocActions } from "../../../stores/quanLyKhoaHocReducer/quanLyKhoaHocReducer";
 
 const Detail = () => {
@@ -28,6 +29,15 @@ const Detail = () => {
       console.log(res);
     })();
   }, []);
+  const handleRegister = async () => {
+    try {
+      const res = await quanLyCourseServices.dangKyKhoaHoc({
+        maKhoaHoc: detail.maKhoaHoc,
+        taiKhoan: JSON.parse(localStorage.getItem("UserLogin")).taiKhoan,
+      });
+      dispatch(addToCart({ id: detail.maKhoaHoc, courses: detail }));
+    } catch (error) {}
+  };
   return (
     <div className="max-w-[1340px] w-full mx-auto px-6 py-12 min-h-[550px] container">
       <div className="flex">
@@ -42,7 +52,10 @@ const Detail = () => {
           <p>Mô tả: {detail?.moTa}</p>
           <p>Lượt xem: {detail?.luotXem}</p>
           <p>Ngày tạo: {moment(detail?.ngayTao).format("DD-MM-YYYY hh:mm")}</p>
-          <button  className="py-2 px-10 bg-yellow-400 rounded-md hover:bg-red-500 hover:text-white">
+          <button
+            className="py-2 px-10 bg-yellow-400 rounded-md hover:bg-red-500 hover:text-white"
+            onClick={handleRegister}
+          >
             Đăng ký ngay
           </button>
         </div>

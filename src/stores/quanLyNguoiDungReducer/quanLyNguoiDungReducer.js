@@ -70,8 +70,10 @@ export const {
       })
       .addCase(dangNhap.fulfilled, (state, action) => {
         state.nguoiDung = action.payload;
+        console.log(state.nguoiDung);
         state.isFetchNguoiDung = false;
         state.errNguoiDung = undefined;
+        console.log(action.payload);
         localStorage.setItem(UserLogin, JSON.stringify(action.payload));
         localStorage.setItem(
           AccessToken,

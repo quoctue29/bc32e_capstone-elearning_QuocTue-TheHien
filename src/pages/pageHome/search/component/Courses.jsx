@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserLogin } from "../../../../constants/api";
 
 const Courses = ({ item }) => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Courses = ({ item }) => {
   return (
     <div
       className="w-full flex justify-between py-4 border-b-slate-200 border-b-[1px] relative"
-      onClick={() => navigate(`/detail/${item.maKhoaHoc}`)}
+      onClick={() => {localStorage.getItem(UserLogin) ?  navigate(`/detail/${item.maKhoaHoc}`)  : navigate('/user/login')}} 
       onMouseEnter={() => setIsShow(true)}
       onMouseLeave={() => setIsShow(false)}
     >

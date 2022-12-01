@@ -1,11 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import {
-  Navigate,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { UserLogin } from "../../../../constants/api";
 import { quanLyNguoiDungActions } from "../../../../stores/quanLyNguoiDungReducer/quanLyNguoiDungReducer";
 const Header = () => {
@@ -16,10 +12,11 @@ const Header = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const nguoiDung = JSON.parse(localStorage.getItem(UserLogin));
   //const [navbar, setNavbar] = useState(false);
+  const cartItems = useSelector((state) => state.card.cartItems);
   const onSubmitSearch = (values) => {
     if (values.tenKhoaHoc.trim().length === 0) return;
     navigate({
@@ -39,7 +36,7 @@ const Header = () => {
             />
           </NavLink>
         </div>
-        <div className="block lg:hidden ">
+        <div className="block lg:hidden py-[10px] ">
           <button
             id="nav"
             className="flex items-center px-3 py-2 border-2 rounded text-blue-700 border-blue-700 hover:text-blue-700 hover:border-blue-700"
@@ -47,6 +44,7 @@ const Header = () => {
             <svg
               className="fill-current h-3 w-3"
               viewBox="0 0 20 20"
+              fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
             >
               <title>Menu</title>
@@ -76,7 +74,7 @@ const Header = () => {
             type="search"
             placeholder="Nhập khóa học bạn cần tìm.... "
           />
-          <button type="submit" className="absolute right-0 top-0 mt-3 mr-2">
+          <button type="submit" className="absolute right-0 top-0 mt-3 mr-5">
             <svg
               className="text-gray-600 h-4 w-4 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -99,9 +97,14 @@ const Header = () => {
             <div className="inline-block space-x-2">
               <NavLink
                 to="profile"
-                className="inline-block text-lg rounded-lg px-6 py-2 text-white bg-amber-600 hover:bg-gray-500 hover:text-white transition duration-300"
+                className="inline-block relative text-lg rounded-lg px-6 py-2 text-white bg-amber-600 hover:bg-gray-500 hover:text-white transition duration-300"
               >
                 Hello! {nguoiDung.taiKhoan}
+                {cartItems?.length > 0 && (
+                  <div className="absolute -top-1/2 right-0 w-8 h-8 flex justify-center rounded-full bg-white text-red-500 text-center">
+                    <span>{cartItems.length}</span>
+                  </div>
+                )}
               </NavLink>
               <button
                 onClick={() => {
